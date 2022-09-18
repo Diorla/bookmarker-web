@@ -66,6 +66,19 @@ const Delete = styled.button`
     color: white;
   }
 `;
+const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  padding: 4px 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: 0.3s;
+  &:hover {
+    background-color: crimson;
+    color: white;
+  }
+`;
 
 const InputWrapper = styled.div<{ elevated: boolean }>`
   display: flex;
@@ -115,7 +128,7 @@ export default function Home() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={() => signOut()}>Sign out</button>
+        <Button onClick={() => signOut()}>Sign out</Button>
       </InputWrapper>
       <div>
         {links
