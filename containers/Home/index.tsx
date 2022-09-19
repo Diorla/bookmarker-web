@@ -9,7 +9,7 @@ import Center from "../../components/Center";
 
 const Wrapper = styled.div`
   padding: 4px;
-  width: clamp(240px, 100%, 960px);
+  width: clamp(240px, 95%, 960px);
   margin: auto;
 `;
 
@@ -28,6 +28,11 @@ const Row = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+`;
+
+const Column = styled(Row)`
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 const Image = styled.img`
@@ -62,6 +67,8 @@ const Delete = styled.button`
   border-radius: 4px;
   text-transform: uppercase;
   transition: 0.3s;
+  align-self: flex-end;
+  margin-right: 16px;
   &:hover {
     background-color: teal;
     color: white;
@@ -159,9 +166,10 @@ export default function Home() {
             const { tags = [] } = item;
             return (
               <Item key={item.id} className="item">
-                <Row
+                <Column
                   style={{
                     justifyContent: "space-between",
+
                     width: "100%",
                   }}
                 >
@@ -185,7 +193,7 @@ export default function Home() {
                   >
                     Delete
                   </Delete>
-                </Row>
+                </Column>
                 <Row>
                   {tags.map((item: string, idx: Key) => (
                     <Span key={idx}>{item}</Span>
