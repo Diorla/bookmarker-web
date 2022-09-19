@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useWindowScroll } from "react-use";
 import deleteUrl from "../../services/deleteUrl";
 import signOut from "../../services/signOut";
+import Center from "../../components/Center";
 
 const Wrapper = styled.div`
   padding: 4px;
@@ -126,7 +127,12 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <img src="spinner.gif" />;
+  if (loading)
+    return (
+      <Center>
+        <img src="spinner.gif" />
+      </Center>
+    );
   return (
     <Wrapper>
       <InputWrapper elevated={y > 5}>
@@ -165,6 +171,7 @@ export default function Home() {
                       href={item.url}
                       target="_blank"
                       referrerPolicy="no-referrer"
+                      title={item.description}
                     >
                       {item.title}
                     </Link>

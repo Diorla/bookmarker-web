@@ -1,5 +1,6 @@
 import UserProvider from "../context/userContext";
 import { createGlobalStyle } from "styled-components";
+import Head from "next/head";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,8 +18,13 @@ export default function App({
 }) {
   return (
     <UserProvider>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Bookmarker</title>
+        <link rel="shortcut icon" href="favicon.ico" />
+      </Head>
       <Component {...pageProps} />
-      <GlobalStyle />;
+      <GlobalStyle />
     </UserProvider>
   );
 }

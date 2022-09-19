@@ -1,17 +1,25 @@
 import Form from "../containers/Form";
 import Home from "../containers/Home";
 import { useUser } from "../context/userContext";
+import Center from "../components/Center";
 
 export default function Index() {
   const { loadingUser, user, error } = useUser();
 
   if (loadingUser)
     return (
-      <div>
+      <Center>
         <img src="spinner.gif" />
-      </div>
+      </Center>
     );
-  if (error) return <div>{error.message}</div>;
+  if (error)
+    <Center>
+      <div>{error.message}</div>
+    </Center>;
   if (user.uid) return <Home />;
-  return <Form />;
+  return (
+    <Center>
+      <Form />
+    </Center>
+  );
 }

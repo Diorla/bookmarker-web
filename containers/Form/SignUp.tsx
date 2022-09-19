@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Input from "../../components/input";
 import signUpWithEmail from "../../services/signUpWithEmail";
+import Card from "./Card";
+import LinkButton from "./LinkButton";
+import SubmitButton from "./SubmitButton";
 
 export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
   const init = {
@@ -28,7 +31,8 @@ export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
     }
   };
   return (
-    <div>
+    <Card>
+      <h2 style={{ textAlign: "center" }}>Sign up</h2>
       <Input
         label="Email"
         value={details.email}
@@ -68,8 +72,12 @@ export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
         }
         type="password"
       />
-      <button onClick={toggleForm}>Already a member</button>
-      <button onClick={submit}>Submit</button>
-    </div>
+      <div>
+        <LinkButton onClick={toggleForm}>Already a member</LinkButton>
+      </div>
+      <SubmitButton>
+        <button onClick={submit}>Submit</button>
+      </SubmitButton>
+    </Card>
   );
 }

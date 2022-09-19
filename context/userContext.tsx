@@ -79,7 +79,7 @@ export default function UserContextComp({
     <UserContext.Provider value={{ user, loadingUser, error }}>
       {children}
     </UserContext.Provider>
-  );
+  )
 }
 
 export const useUser = () => useContext(UserContext);
