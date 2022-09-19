@@ -1,7 +1,7 @@
 import Form from "../containers/Form";
 import Home from "../containers/Home";
 import { useUser } from "../context/userContext";
-//
+
 export default function Index() {
   const { loadingUser, user, error } = useUser();
 
@@ -12,6 +12,6 @@ export default function Index() {
       </div>
     );
   if (error) return <div>{error.message}</div>;
-  if (user) return <Home />;
+  if (user.uid) return <Home />;
   return <Form />;
 }
