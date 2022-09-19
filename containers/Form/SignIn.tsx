@@ -13,7 +13,7 @@ export default function SignIn({ toggleForm }: { toggleForm: () => void }) {
     try {
       return await signInWithEmail(details);
     } catch (err) {
-      return console.log(err.message);
+      return console.log(err);
     }
   };
 

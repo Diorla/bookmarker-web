@@ -103,10 +103,18 @@ const Input = styled.input`
   }
 `;
 
+export interface UrlProps {
+  id: string;
+  title: string;
+  url: string;
+  tags: string[];
+  favicon: string;
+  description: string;
+}
 export default function Home() {
   const { user } = useUser();
   const [search, setSearch] = useState("");
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState<UrlProps[]>([]);
   const [loading, setLoading] = useState(true);
   const { y } = useWindowScroll();
   useEffect(() => {

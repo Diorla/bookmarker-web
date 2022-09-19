@@ -1,3 +1,4 @@
+import { UrlProps } from "./../containers/Home/index";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 
 export default function fetchUrls(
@@ -7,9 +8,9 @@ export default function fetchUrls(
   const db = getFirestore();
   const q = collection(db, `users/${userId}/links`);
   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const links = [];
+    const links: UrlProps[] = [];
     querySnapshot.forEach((doc) => {
-      links.push(doc.data());
+      links.push(doc.data() as UrlProps);
     });
     getLinks(links);
   });

@@ -24,7 +24,7 @@ export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
         setError({ ...init, repassword: "Password does not match" });
       else return await signUpWithEmail(details);
     } catch (err) {
-      return console.log(err.message);
+      return console.log(err);
     }
   };
   return (

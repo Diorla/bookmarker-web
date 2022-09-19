@@ -8,7 +8,13 @@ const GlobalStyle = createGlobalStyle`
     background-color: aliceblue;
   }
 `;
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps,
+}: {
+  Component: any;
+  pageProps: any;
+}) {
   return (
     <UserProvider>
       <Component {...pageProps} />
