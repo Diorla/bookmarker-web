@@ -172,7 +172,7 @@ export default function Home() {
                   <Delete
                     onClick={() =>
                       deleteUrl(user.uid, item.id).catch((err) =>
-                        console.log(err.message)
+                        console.log(err)
                       )
                     }
                   >
