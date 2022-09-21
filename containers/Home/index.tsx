@@ -140,6 +140,10 @@ export default function Home() {
         <img src="spinner.gif" />
       </Center>
     );
+  const filteredLinks = links.filter(({ title, url, tags = [] }) => {
+    const searchField = (title + url + tags.join(" ")).toLowerCase();
+    return searchField.includes(search.toLowerCase());
+  });
   return (
     <Wrapper>
       <InputWrapper elevated={y > 5}>
@@ -149,16 +153,11 @@ export default function Home() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <span style={{ fontWeight: "bold" }}>{filteredLinks.length}</span>
         <Button onClick={() => signOut()}>Sign out</Button>
       </InputWrapper>
       <div>
-        {links
-          .filter((item) => {
-            const searchField = (
-              item.title + item.tags.join(" ")
-            ).toLowerCase();
-            return searchField.includes(search.toLowerCase());
-          })
+        {filteredLinks
           .sort((prev, next) =>
             prev.title.toLowerCase() > next.title.toLowerCase() ? 1 : -1
           )

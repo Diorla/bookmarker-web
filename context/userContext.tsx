@@ -64,7 +64,7 @@ export default function UserContextComp({
       try {
         if (currentUser) {
           setUser(currentUser);
-        }
+        } else setUser(initialUser);
       } catch (error) {
         setError(error as Error);
       } finally {
@@ -79,7 +79,7 @@ export default function UserContextComp({
     <UserContext.Provider value={{ user, loadingUser, error }}>
       {children}
     </UserContext.Provider>
-  )
+  );
 }
 
 export const useUser = () => useContext(UserContext);
