@@ -11,6 +11,7 @@ import Input from "../../components/input";
 import Wrapper from "./Wrapper";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
+import getNumOfLinks from "./getNumOfLinks";
 
 export default function Home() {
   const { user } = useUser();
@@ -70,6 +71,7 @@ export default function Home() {
           />
         )}
       </div>
+      <div>{getNumOfLinks(filteredLinks.length)}</div>
       <Main>
         {filteredLinks
           .sort((prev, next) =>
