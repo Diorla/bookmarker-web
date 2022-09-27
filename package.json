@@ -8,17 +8,17 @@
     "build:firebase": "next build && next export && firebase deploy"
   },
   "dependencies": {
-    "firebase": "9.1.1",
-    "firebase-admin": "9.12.0",
+    "firebase": "9.10.0",
+    "firebase-admin": "11.0.1",
     "next": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-use": "^17.4.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@types/react": "18.0.20",
+    "@types/react": "18.0.21",
     "@types/styled-components": "^5.1.26",
-    "typescript": "4.8.3"
+    "typescript": "4.8.4"
   }
 }
