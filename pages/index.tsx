@@ -1,7 +1,9 @@
-import Form from "../containers/Form";
-import Home from "../containers/Home";
+import React from "react";
 import { useUser } from "../context/userContext";
-import Center from "../components/Center";
+
+const Form = React.lazy(() => import("../containers/Form"));
+const Home = React.lazy(() => import("../containers/Home"));
+const Center = React.lazy(() => import("../components/Center"));
 
 export default function Index() {
   const { loadingUser, user, error } = useUser();
