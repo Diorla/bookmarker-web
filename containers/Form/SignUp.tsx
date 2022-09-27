@@ -1,83 +1,103 @@
 import { useState } from "react";
+import Button from "../../components/button";
 import Input from "../../components/input";
+import Link from "../../components/link";
 import signUpWithEmail from "../../services/signUpWithEmail";
-import Card from "./Card";
-import LinkButton from "./LinkButton";
-import SubmitButton from "./SubmitButton";
 
 export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
-  const init = {
+  const initial = {
     email: "",
     password: "",
     repassword: "",
   };
-  const [details, setDetails] = useState(init);
+  const [value, setValue] = useState(initial);
 
-  const [error, setError] = useState(init);
+  const [error, setError] = useState(initial);
 
-  const submit = async () => {
-    try {
-      const { email, password, repassword } = details;
-      if (!email) setError({ ...init, email: "Please provide email" });
-      else if (!password)
-        setError({ ...init, password: "Please provide password" });
-      else if (!repassword)
-        setError({ ...init, repassword: "Please confirm your password" });
-      else if (password !== repassword)
-        setError({ ...init, repassword: "Password does not match" });
-      else return await signUpWithEmail(details);
-    } catch (err) {
-      return console.log(err);
-    }
+  const [formError, setFormError] = useState("");
+  const submit = () => {
+    const { email, password, repassword } = value;
+    if (!email)
+      setError({
+        ...initial,
+        email: "Please provide email",
+      });
+    else if (!password)
+      setError({
+        ...initial,
+        password: "Please provide password",
+      });
+    else if (!repassword)
+      setError({
+        ...initial,
+        repassword: "Please confirm your password",
+      });
+    else if (password !== repassword)
+      setError({
+        ...initial,
+        repassword: "Password does not match",
+      });
+    else
+      signUpWithEmail({ email, password }).catch((err) =>
+        setFormError(err.message)
+      );
   };
   return (
-    <Card>
-      <h2 style={{ textAlign: "center" }}>Sign up</h2>
+    <div>
       <Input
         label="Email"
-        value={details.email}
-        onFocus={() => setError(init)}
-        errorText={error.email}
-        onChangeText={(email) =>
-          setDetails({
-            ...details,
-            email,
-          })
-        }
         type="email"
+        placeholder="example@email.com"
+        value={value.email}
+        errorText={error.email}
+        onChange={(e) => {
+          setValue({
+            ...value,
+            email: e.target.value,
+          });
+        }}
+        onFocus={() => setError(initial)}
+        style={{ marginBottom: 8 }}
       />
       <Input
         label="Password"
-        onFocus={() => setError(init)}
-        value={details.password}
-        errorText={error.password}
-        onChangeText={(password) =>
-          setDetails({
-            ...details,
-            password,
-          })
-        }
         type="password"
+        placeholder="∗∗∗∗∗∗∗∗"
+        value={value.password}
+        errorText={error.password}
+        onChange={(e) => {
+          setValue({
+            ...value,
+            password: e.target.value,
+          });
+        }}
+        onFocus={() => setError(initial)}
+        style={{ marginBottom: 8 }}
       />
       <Input
-        label="Confirm password"
-        onFocus={() => setError(init)}
-        value={details.repassword}
-        errorText={error.repassword}
-        onChangeText={(repassword) =>
-          setDetails({
-            ...details,
-            repassword,
-          })
-        }
+        label="Confirm Password"
         type="password"
+        placeholder="∗∗∗∗∗∗∗∗"
+        value={value.repassword}
+        errorText={error.repassword}
+        onChange={(e) => {
+          setValue({
+            ...value,
+            repassword: e.target.value,
+          });
+        }}
+        onFocus={() => setError(initial)}
+        style={{ marginBottom: 8 }}
       />
       <div>
-        <LinkButton onClick={toggleForm}>Already a member</LinkButton>
+        <Link onClick={toggleForm}>Already a member?</Link>
       </div>
-      <SubmitButton>
-        <button onClick={submit}>Submit</button>
-      </SubmitButton>
-    </Card>
+      <div style={{ color: "red" }}>{formError}</div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button variant="primary" onClick={submit}>
+          Sign up
+        </Button>
+      </div>
+    </div>
   );
 }

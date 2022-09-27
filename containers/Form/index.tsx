@@ -4,9 +4,6 @@ import SignUp from "./SignUp";
 
 export default function Form() {
   const [isNew, setIsNew] = useState(false);
-  return isNew ? (
-    <SignUp toggleForm={() => setIsNew(!isNew)} />
-  ) : (
-    <SignIn toggleForm={() => setIsNew(!isNew)} />
-  );
+  if (isNew) return <SignUp toggleForm={() => setIsNew(!isNew)} />;
+  return <SignIn toggleForm={() => setIsNew(!isNew)} />;
 }

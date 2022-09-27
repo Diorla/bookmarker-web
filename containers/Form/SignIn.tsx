@@ -1,56 +1,78 @@
 import { useState } from "react";
+import Button from "../../components/button";
 import Input from "../../components/input";
+import Link from "../../components/link";
 import signInWithEmail from "../../services/signInWithEmail";
-import Card from "./Card";
-import LinkButton from "./LinkButton";
-import SubmitButton from "./SubmitButton";
 
 export default function SignIn({ toggleForm }: { toggleForm: () => void }) {
-  const init = {
+  const initial = {
     email: "",
     password: "",
   };
-  const [details, setDetails] = useState(init);
+  const [value, setValue] = useState(initial);
 
-  const submit = async () => {
-    try {
-      return await signInWithEmail(details);
-    } catch (err) {
-      return console.log(err);
-    }
+  const [error, setError] = useState(initial);
+
+  const [formError, setFormError] = useState("");
+
+  const submit = () => {
+    const { email, password } = value;
+    if (!email)
+      setError({
+        ...initial,
+        email: "Please provide email",
+      });
+    else if (!password)
+      setError({
+        ...initial,
+        password: "Please provide password",
+      });
+    else
+      signInWithEmail({ email, password }).catch((err) =>
+        setFormError(err.message)
+      );
   };
-
   return (
-    <Card>
-      <h2 style={{ textAlign: "center" }}>Sign in</h2>
+    <div>
       <Input
         label="Email"
-        value={details.email}
-        onChangeText={(email) =>
-          setDetails({
-            ...details,
-            email,
-          })
-        }
         type="email"
+        placeholder="example@email.com"
+        value={value.email}
+        errorText={error.email}
+        onChange={(e) => {
+          setValue({
+            ...value,
+            email: e.target.value,
+          });
+        }}
+        onFocus={() => setError(initial)}
+        style={{ marginBottom: 8 }}
       />
       <Input
         label="Password"
-        value={details.password}
-        onChangeText={(password) =>
-          setDetails({
-            ...details,
-            password,
-          })
-        }
         type="password"
+        placeholder="∗∗∗∗∗∗∗∗"
+        value={value.password}
+        errorText={error.password}
+        onChange={(e) => {
+          setValue({
+            ...value,
+            password: e.target.value,
+          });
+        }}
+        onFocus={() => setError(initial)}
+        style={{ marginBottom: 8 }}
       />
       <div>
-        <LinkButton onClick={toggleForm}>Are you a new user</LinkButton>
+        <Link onClick={toggleForm}>New member</Link>
       </div>
-      <SubmitButton>
-        <button onClick={submit}>Submit</button>
-      </SubmitButton>
-    </Card>
+      <div style={{ color: "red" }}>{formError}</div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button variant="primary" onClick={submit}>
+          Sign in
+        </Button>
+      </div>
+    </div>
   );
 }

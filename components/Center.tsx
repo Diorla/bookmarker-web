@@ -9,5 +9,4 @@ export default styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background-color: white;
 `;
