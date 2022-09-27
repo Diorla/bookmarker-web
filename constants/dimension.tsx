@@ -1,10 +1,4 @@
-import size from "../interfaces/size";
-
-type Dimension = {
-  [key in size]: number;
-};
-
-const dimension: Dimension = {
+const dimension = {
   xs: 2,
   sm: 1.6,
   md: 1.2,
