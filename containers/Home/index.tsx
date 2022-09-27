@@ -1,130 +1,24 @@
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import fetchUrls from "../../services/fetchUrls";
-import styled from "styled-components";
-import { useWindowScroll } from "react-use";
+import { useWindowSize } from "react-use";
 import deleteUrl from "../../services/deleteUrl";
 import signOut from "../../services/signOut";
 import Center from "../../components/Center";
+import { Header, MenuItem } from "../../components/header";
+import Card from "../../components/card";
+import Input from "../../components/input";
+import Wrapper from "./Wrapper";
+import Main from "./Main";
+import UrlProps from "./UrlProps";
 
-const Wrapper = styled.div`
-  padding: 4px;
-  width: clamp(240px, 95%, 960px);
-  margin: auto;
-`;
-
-const Item = styled.div`
-  box-shadow: 0 0 4px silver;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 4px;
-  flex-direction: column;
-  margin-bottom: 8px;
-  background-color: white;
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-`;
-
-const Column = styled(Row)`
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const Image = styled.img`
-  height: 24px;
-  width: 24px;
-  margin-right: 8px;
-`;
-
-const Link = styled.a`
-  color: #5177bd;
-  &:hover {
-    color: cornflowerblue;
-  }
-`;
-
-const Span = styled.div`
-  border: 1px solid teal;
-  margin: 4px;
-  padding: 4px 8px;
-  border-radius: 16px;
-  transition: 0.3s;
-  &:hover {
-    background-color: #ade1e1;
-  }
-`;
-
-const Delete = styled.button`
-  cursor: pointer;
-  border: none;
-  padding: 4px 6px;
-  font-size: 14px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  transition: 0.3s;
-  align-self: flex-end;
-  margin-right: 16px;
-  &:hover {
-    background-color: teal;
-    color: white;
-  }
-`;
-const Button = styled.button`
-  cursor: pointer;
-  border: none;
-  padding: 4px 6px;
-  font-size: 14px;
-  border-radius: 4px;
-  text-transform: uppercase;
-  transition: 0.3s;
-  &:hover {
-    background-color: crimson;
-    color: white;
-  }
-`;
-
-const InputWrapper = styled.div<{ elevated: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background: ${({ elevated }) => (elevated ? "white" : "transparent")};
-  padding: 8px;
-  transition: 0.3s;
-  box-shadow: ${({ elevated }) => (elevated ? "0 4px 8px silver" : "none")};
-  margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-  width: clamp(120px, 80%, 240px);
-  padding: 4px;
-  border: 1px solid silver;
-  outline: none;
-  &:focus {
-    border: 1px solid gray;
-  }
-`;
-
-export interface UrlProps {
-  id: string;
-  title: string;
-  url: string;
-  tags: string[];
-  favicon: string;
-  description: string;
-}
 export default function Home() {
   const { user } = useUser();
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<UrlProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const { y } = useWindowScroll();
+  const { width } = useWindowSize();
+  const widthLimit = 600;
   useEffect(() => {
     const unsubscribe = fetchUrls(user.uid, (links) => {
       setLinks(links);
@@ -146,62 +40,57 @@ export default function Home() {
   });
   return (
     <Wrapper>
-      <InputWrapper elevated={y > 5}>
-        <Input
-          type="search"
-          placeholder="filter"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <span style={{ fontWeight: "bold" }}>{filteredLinks.length}</span>
-        <Button onClick={() => signOut()}>Sign out</Button>
-      </InputWrapper>
-      <div>
+      <Header style={{ justifyContent: "space-between" }}>
+        <MenuItem active href="/">
+          <img
+            src="https://bookmarker-one.vercel.app/favicon.ico"
+            style={{ height: 24, width: 24 }}
+          />
+        </MenuItem>
+        {width > widthLimit && (
+          <Input
+            type="search"
+            placeholder="filter"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        )}
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <MenuItem href="/profile">Profile</MenuItem>
+          <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+        </div>
+      </Header>
+      <div style={{ margin: 8 }}>
+        {width <= widthLimit && (
+          <Input
+            type="search"
+            placeholder="filter"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        )}
+      </div>
+      <Main>
         {filteredLinks
           .sort((prev, next) =>
             prev.title.toLowerCase() > next.title.toLowerCase() ? 1 : -1
           )
           .map((item) => {
-            const { tags = [] } = item;
+            const { tags = [], favicon, title, description, url } = item;
             return (
-              <Item key={item.id} className="item">
-                <Column
-                  style={{
-                    justifyContent: "space-between",
-
-                    width: "100%",
-                  }}
-                >
-                  <Row style={{ padding: 4 }}>
-                    <Image src={item.favicon || "favicon.ico"} />
-                    <Link
-                      href={item.url}
-                      target="_blank"
-                      referrerPolicy="no-referrer"
-                      title={item.description}
-                    >
-                      {item.title}
-                    </Link>
-                  </Row>
-                  <Delete
-                    onClick={() =>
-                      deleteUrl(user.uid, item.id).catch((err) =>
-                        console.log(err)
-                      )
-                    }
-                  >
-                    Delete
-                  </Delete>
-                </Column>
-                <Row>
-                  {tags.map((item: string, idx: Key) => (
-                    <Span key={idx}>{item}</Span>
-                  ))}
-                </Row>
-              </Item>
+              <Card
+                url={url}
+                favicon={favicon || "favicon.ico"}
+                title={title}
+                tags={tags}
+                description={description}
+                onDelete={() =>
+                  deleteUrl(user.uid, item.id).catch((err) => console.log(err))
+                }
+              />
             );
           })}
-      </div>
+      </Main>
     </Wrapper>
   );
 }

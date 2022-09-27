@@ -11,9 +11,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const theme = {
-  primaryLight: "#8abdff",
-  primary: "#6d5dfc",
-  primaryDark: "#5b0eeb",
+  primaryLight: "#4db6ac",
+  primary: "#00796b",
+  primaryDark: "#004d40",
   secondaryLight: "#f06292",
   secondary: "#e91e63",
   secondaryDark: "#c2185b",

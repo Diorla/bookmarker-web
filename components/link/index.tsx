@@ -1,7 +1,6 @@
 import { AnchorHTMLAttributes, DetailedHTMLProps, HTMLAttributes } from "react";
 import styled from "styled-components";
 
-// interface LinkProps extends HTMLAttributes<HTMLAnchorElement> {
 interface LinkProps
   extends DetailedHTMLProps<
     AnchorHTMLAttributes<HTMLAnchorElement>,
