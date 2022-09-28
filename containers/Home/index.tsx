@@ -8,11 +8,17 @@ import Center from "../../components/Center";
 import { Header, MenuItem } from "../../components/header";
 import Card from "../../components/card";
 import Input from "../../components/input";
-import Wrapper from "./Wrapper";
+import Container from "../../components/Container";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
+import styled from "styled-components";
 
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: clamp(120px, 90%, 960px);
+`;
 export default function Home() {
   const { user } = useUser();
   const [search, setSearch] = useState("");
@@ -40,7 +46,7 @@ export default function Home() {
     return searchField.includes(search.toLowerCase());
   });
   return (
-    <Wrapper>
+    <Container>
       <Header style={{ justifyContent: "space-between" }}>
         <MenuItem active href="/">
           <img
@@ -71,7 +77,11 @@ export default function Home() {
           />
         )}
       </div>
-      <div>{getNumOfLinks(filteredLinks.length)}</div>
+      <Info>
+        <div>Welcome, {user.displayName}</div>
+        <div>{getNumOfLinks(filteredLinks.length)}</div>
+        <span></span>
+      </Info>
       <Main>
         {filteredLinks
           .sort((prev, next) =>
@@ -93,6 +103,6 @@ export default function Home() {
             );
           })}
       </Main>
-    </Wrapper>
+    </Container>
   );
 }
