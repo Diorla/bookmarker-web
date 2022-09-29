@@ -1,30 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Button from "../../components/button";
 import Container from "../../components/Container";
 import { Header, MenuItem } from "../../components/header";
 import Input from "../../components/input";
 import { useUser } from "../../context/userContext";
+import deleteAccount from "../../services/deleteAccount";
 import signOut from "../../services/signOut";
 import updateDisplayName from "../../services/updateDisplayName";
 import updatePassword from "../../services/updatePassword";
 import Main from "./Main";
 
 const Loader = React.lazy(() => import("../../components/Loader"));
-// TODO: Delete account
-/**
- * Enable users to delete their account
- */
 
-// TODO: Download data
-/**
- * Allows user to download their data in JSON or HTML format
- * It will also enable user to download all their links
- */
 export default function Profile() {
   const { user, loadingUser } = useUser();
-  const { email, displayName } = user;
+  const { email = "", displayName } = user;
   const [currentName, setCurrentName] = useState(displayName || "");
+
+  useEffect(() => {
+    setCurrentName(displayName || "");
+  }, [displayName]);
+
   const initialPassword = {
     init: "",
     confirm: "",
@@ -66,6 +63,12 @@ export default function Profile() {
         .catch((err) => setFormError(err.message));
   };
 
+  const deleteUser = () => {
+    const password = prompt("Please enter password");
+    deleteAccount(email || "", password || "")
+      ?.then(() => console.log("account deleted"))
+      .catch((err) => console.log(err));
+  };
   if (loadingUser) return <Loader />;
 
   return (
@@ -155,6 +158,20 @@ export default function Profile() {
             Confirm
           </Button>
         </div>
+        <h2>Manage account</h2>
+        <Button
+          style={{ marginBottom: 8 }}
+          onClick={() => alert("This feature is not supported yet")}
+        >
+          Download data
+        </Button>
+        <Button
+          variant="secondary"
+          style={{ marginBottom: 8 }}
+          onClick={deleteUser}
+        >
+          Delete Account
+        </Button>
       </Main>
     </Container>
   );
