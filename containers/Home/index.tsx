@@ -4,7 +4,6 @@ import fetchUrls from "../../services/fetchUrls";
 import { useWindowSize } from "react-use";
 import deleteUrl from "../../services/deleteUrl";
 import signOut from "../../services/signOut";
-import Center from "../../components/Center";
 import { Header, MenuItem } from "../../components/header";
 import Card from "../../components/card";
 import Input from "../../components/input";
@@ -12,13 +11,9 @@ import Container from "../../components/Container";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
-import styled from "styled-components";
+import Loader from "../../components/Loader";
+import Info from "./Info";
 
-const Info = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: clamp(120px, 90%, 960px);
-`;
 export default function Home() {
   const { user } = useUser();
   const [search, setSearch] = useState("");
@@ -35,12 +30,7 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  if (loading)
-    return (
-      <Center>
-        <img src="spinner.gif" />
-      </Center>
-    );
+  if (loading) return <Loader />;
   const filteredLinks = links.filter(({ title, url, tags = [] }) => {
     const searchField = (title + url + tags.join(" ")).toLowerCase();
     return searchField.includes(search.toLowerCase());

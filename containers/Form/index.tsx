@@ -1,9 +1,17 @@
 import { useState } from "react";
+import Center from "../../components/Center";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 export default function Form() {
   const [isNew, setIsNew] = useState(false);
-  if (isNew) return <SignUp toggleForm={() => setIsNew(!isNew)} />;
-  return <SignIn toggleForm={() => setIsNew(!isNew)} />;
+  return (
+    <Center>
+      {isNew ? (
+        <SignUp toggleForm={() => setIsNew(!isNew)} />
+      ) : (
+        <SignIn toggleForm={() => setIsNew(!isNew)} />
+      )}
+    </Center>
+  );
 }

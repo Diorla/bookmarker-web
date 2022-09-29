@@ -64,8 +64,15 @@ export default function SignIn({ toggleForm }: { toggleForm: () => void }) {
         onFocus={() => setError(initial)}
         style={{ marginBottom: 8 }}
       />
-      <div>
-        <Link onClick={toggleForm}>New member</Link>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: 8,
+        }}
+      >
+        <Link onClick={toggleForm}>New member?</Link>
+        <Link href="/reset-password">Forgot password</Link>
       </div>
       <div style={{ color: "red" }}>{formError}</div>
       <div style={{ display: "flex", justifyContent: "center" }}>
