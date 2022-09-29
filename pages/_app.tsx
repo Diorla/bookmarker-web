@@ -40,6 +40,11 @@ export default function App({
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <title>Bookmarker</title>
           <link rel="shortcut icon" href="favicon.ico" />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8409252119990664"
+            crossOrigin="anonymous"
+          ></script>
         </Head>
         <Component {...pageProps} />
       </ThemeProvider>
