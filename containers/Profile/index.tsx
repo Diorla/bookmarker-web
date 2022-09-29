@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import Button from "../../components/button";
 import Container from "../../components/Container";
@@ -7,9 +8,19 @@ import { useUser } from "../../context/userContext";
 import signOut from "../../services/signOut";
 import updateDisplayName from "../../services/updateDisplayName";
 import updatePassword from "../../services/updatePassword";
-import Center from "../../components/Center";
 import Main from "./Main";
 
+const Loader = React.lazy(() => import("../../components/Loader"));
+// TODO: Delete account
+/**
+ * Enable users to delete their account
+ */
+
+// TODO: Download data
+/**
+ * Allows user to download their data in JSON or HTML format
+ * It will also enable user to download all their links
+ */
 export default function Profile() {
   const { user, loadingUser } = useUser();
   const { email, displayName } = user;
@@ -55,12 +66,7 @@ export default function Profile() {
         .catch((err) => setFormError(err.message));
   };
 
-  if (loadingUser)
-    return (
-      <Center>
-        <img src="spinner.gif" />
-      </Center>
-    );
+  if (loadingUser) return <Loader />;
 
   return (
     <Container>

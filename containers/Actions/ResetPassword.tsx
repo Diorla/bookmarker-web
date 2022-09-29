@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../components/button";
-import Center from "../../components/Center";
 import Input from "../../components/input";
+import Link from "../../components/link";
 import verifyPassword from "../../services/verifyPassword";
 
 export default function ResetPassword({ actionCode }: { actionCode: string }) {
@@ -39,13 +39,14 @@ export default function ResetPassword({ actionCode }: { actionCode: string }) {
   };
   if (isReset)
     return (
-      <Center>
+      <>
         <h2>Password Reset</h2>
         <div>Your password has been reset</div>
-      </Center>
+        <Link href="/">Go home</Link>
+      </>
     );
   return (
-    <Center>
+    <>
       <h2>Password Reset</h2>
       <Input
         id="password"
@@ -55,6 +56,7 @@ export default function ResetPassword({ actionCode }: { actionCode: string }) {
         value={password.init}
         onChange={(e) => setPassword({ ...password, init: e.target.value })}
         errorText={error.init}
+        onFocus={() => setError(initialPassword)}
       />
       <Input
         id="password"
@@ -64,10 +66,15 @@ export default function ResetPassword({ actionCode }: { actionCode: string }) {
         value={password.confirm}
         onChange={(e) => setPassword({ ...password, confirm: e.target.value })}
         errorText={error.confirm}
+        onFocus={() => setError(initialPassword)}
       />
-      <Button variant="primary" onClick={submitNewPassword}>
+      <Button
+        variant="primary"
+        onClick={submitNewPassword}
+        style={{ marginTop: 8 }}
+      >
         Reset Password
       </Button>
-    </Center>
+    </>
   );
 }

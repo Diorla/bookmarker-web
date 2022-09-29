@@ -30,7 +30,7 @@ export default function Actions() {
   }, []);
 
   return (
-    <Center>
+    <Center style={{ flexDirection: "column" }}>
       <Switch mode={mode} actionCode={actionCode} />
     </Center>
   );
