@@ -1,5 +1,5 @@
+import { Container } from "bookmarker-ui";
 import { useEffect, useState } from "react";
-import Center from "../../components/Center";
 import Invalid from "./Invalid";
 import ResetPassword from "./ResetPassword";
 import VerifyEmail from "./VerifyEmail";
@@ -30,8 +30,13 @@ export default function Actions() {
   }, []);
 
   return (
-    <Center style={{ flexDirection: "column" }}>
+    <Container
+      fullHeight
+      alignCenter
+      justifyCenter
+      style={{ flexDirection: "column" }}
+    >
       <Switch mode={mode} actionCode={actionCode} />
-    </Center>
+    </Container>
   );
 }

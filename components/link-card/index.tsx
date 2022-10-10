@@ -1,14 +1,17 @@
+import { Button, Chip, Link, Card } from "bookmarker-ui";
 import { useState } from "react";
-import Button from "../button";
-import Chip from "../chip";
-import Link from "../link";
+import styled from "styled-components";
 import CardProps from "./CardProps";
 import Chips from "./Chips";
 import Icon from "./Icon";
-import StyledCard from "./StyledCard";
 import Top from "./Top";
 
-export default function Card({
+const ExtCard = styled(Card)`
+  margin-bottom: 0.6rem;
+  padding: 0.4rem 0.6rem;
+`;
+
+export default function LinkCard({
   favicon,
   title,
   tags,
@@ -18,14 +21,19 @@ export default function Card({
 }: CardProps) {
   const [expanded, setExpanded] = useState(false);
   return (
-    <StyledCard>
+    <ExtCard depth={1}>
       <Top onClick={() => setExpanded(!expanded)}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <img
             src={favicon}
             style={{ height: 24, width: 24, marginRight: 4 }}
           />
-          <Link href={url} target="_blank" referrerPolicy="no-referrer">
+          <Link
+            href={url}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            style={{ overflowWrap: "anywhere" }}
+          >
             {title}
           </Link>
         </div>
@@ -46,6 +54,6 @@ export default function Card({
           </div>
         </>
       ) : null}
-    </StyledCard>
+    </ExtCard>
   );
 }

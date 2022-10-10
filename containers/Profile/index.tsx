@@ -1,17 +1,19 @@
+import {
+  Button,
+  Container,
+  Header,
+  Input,
+  Loader,
+  MenuItem,
+} from "bookmarker-ui";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Button from "../../components/button";
-import Container from "../../components/Container";
-import { Header, MenuItem } from "../../components/header";
-import Input from "../../components/input";
 import { useUser } from "../../context/userContext";
 import deleteAccount from "../../services/deleteAccount";
 import signOut from "../../services/signOut";
 import updateDisplayName from "../../services/updateDisplayName";
 import updatePassword from "../../services/updatePassword";
 import Main from "./Main";
-
-const Loader = React.lazy(() => import("../../components/Loader"));
 
 export default function Profile() {
   const { user, loadingUser } = useUser();
@@ -69,10 +71,10 @@ export default function Profile() {
       ?.then(() => console.log("account deleted"))
       .catch((err) => console.log(err));
   };
-  if (loadingUser) return <Loader />;
+  if (loadingUser) return <Loader fullHeight />;
 
   return (
-    <Container>
+    <Container alignCenter>
       <Header style={{ justifyContent: "space-between" }}>
         <MenuItem href="/">
           <img

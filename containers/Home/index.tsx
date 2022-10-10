@@ -4,15 +4,12 @@ import fetchUrls from "../../services/fetchUrls";
 import { useWindowSize } from "react-use";
 import deleteUrl from "../../services/deleteUrl";
 import signOut from "../../services/signOut";
-import { Header, MenuItem } from "../../components/header";
-import Card from "../../components/card";
-import Input from "../../components/input";
-import Container from "../../components/Container";
+import LinkCard from "../../components/link-card";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
-import Loader from "../../components/Loader";
 import Info from "./Info";
+import { Container, Header, Input, Loader, MenuItem } from "bookmarker-ui";
 
 export default function Home() {
   const { user } = useUser();
@@ -30,13 +27,13 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <Loader />;
+  if (loading) return <Loader fullHeight />;
   const filteredLinks = links.filter(({ title, url, tags = [] }) => {
     const searchField = (title + url + tags.join(" ")).toLowerCase();
     return searchField.includes(search.toLowerCase());
   });
   return (
-    <Container>
+    <Container alignCenter>
       <Header style={{ justifyContent: "space-between" }}>
         <MenuItem active href="/">
           <img
@@ -70,7 +67,6 @@ export default function Home() {
       <Info>
         <div>Welcome, {user.displayName}</div>
         <div>{getNumOfLinks(filteredLinks.length)}</div>
-        <span></span>
       </Info>
       <Main>
         {filteredLinks
@@ -80,7 +76,7 @@ export default function Home() {
           .map((item) => {
             const { tags = [], favicon, title, description, url } = item;
             return (
-              <Card
+              <LinkCard
                 url={url}
                 favicon={favicon || "favicon.ico"}
                 title={title}
@@ -89,6 +85,7 @@ export default function Home() {
                 onDelete={() =>
                   deleteUrl(user.uid, item.id).catch((err) => console.log(err))
                 }
+                key={item.id}
               />
             );
           })}

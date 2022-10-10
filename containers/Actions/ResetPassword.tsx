@@ -1,7 +1,5 @@
+import { Link, Input, Button } from "bookmarker-ui";
 import { useState } from "react";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import Link from "../../components/link";
 import verifyPassword from "../../services/verifyPassword";
 
 export default function ResetPassword({ actionCode }: { actionCode: string }) {

@@ -1,7 +1,5 @@
+import { Button, Container, Input } from "bookmarker-ui";
 import { useState } from "react";
-import Button from "../../components/button";
-import Center from "../../components/Center";
-import Input from "../../components/input";
 import resetPassword from "../../services/resetPassword";
 
 export default function ResetEmail({
@@ -17,7 +15,12 @@ export default function ResetEmail({
     else setError("Please provide an email");
   };
   return (
-    <Center style={{ flexDirection: "column" }}>
+    <Container
+      fullHeight
+      alignCenter
+      justifyCenter
+      style={{ flexDirection: "column" }}
+    >
       <Input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -29,6 +32,6 @@ export default function ResetEmail({
       <Button onClick={handleReset} style={{ marginTop: 8 }} variant="primary">
         Send Instruction
       </Button>
-    </Center>
+    </Container>
   );
 }
