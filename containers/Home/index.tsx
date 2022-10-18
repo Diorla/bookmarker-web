@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import fetchUrls from "../../services/fetchUrls";
 import { useWindowSize } from "react-use";
@@ -9,7 +9,15 @@ import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
 import Info from "./Info";
-import { Container, Header, Input, Loader, MenuItem } from "bookmarker-ui";
+import {
+  Container,
+  Header,
+  Input,
+  Loader,
+  MenuItem,
+  Select,
+  SelectItem,
+} from "bookmarker-ui";
 
 export default function Home() {
   const { user } = useUser();
@@ -18,6 +26,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const { width } = useWindowSize();
   const widthLimit = 600;
+  const [currentCollection, setCurrentCollection] = useState("");
+
+  const { collections = [] } = user;
   useEffect(() => {
     const unsubscribe = fetchUrls(user.uid, (links) => {
       setLinks(links);
@@ -27,11 +38,17 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
+  const filteredLinks = links
+    .filter(({ title, url, tags = [] }) => {
+      const searchField = (title + url + tags.join(" ")).toLowerCase();
+      return searchField.includes(search.toLowerCase());
+    })
+    .filter(({ collection = "" }) => {
+      return currentCollection ? collection === currentCollection : true;
+    });
+
   if (loading) return <Loader fullHeight />;
-  const filteredLinks = links.filter(({ title, url, tags = [] }) => {
-    const searchField = (title + url + tags.join(" ")).toLowerCase();
-    return searchField.includes(search.toLowerCase());
-  });
+
   return (
     <Container alignCenter>
       <Header style={{ justifyContent: "space-between" }}>
@@ -46,7 +63,9 @@ export default function Home() {
             type="search"
             placeholder="filter"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              setSearch(e.target.value)
+            }
           />
         )}
         <div style={{ display: "flex", flexDirection: "row" }}>
@@ -60,13 +79,33 @@ export default function Home() {
             type="search"
             placeholder="filter"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              setSearch(e.target.value)
+            }
           />
         )}
       </div>
       <Info>
         <div>Welcome, {user.displayName}</div>
         <div>{getNumOfLinks(filteredLinks.length)}</div>
+        <Select title={currentCollection || "All"}>
+          {collections
+            .sort((a, b) => (a > b ? 1 : -1))
+            .map((item) => (
+              <SelectItem
+                onClick={() => {
+                  setCurrentCollection(item);
+                }}
+                active={currentCollection === item}
+                key={item}
+              >
+                {item}
+              </SelectItem>
+            ))}
+          <SelectItem onClick={() => setCurrentCollection("")}>
+            Clear ❌
+          </SelectItem>
+        </Select>
       </Info>
       <Main>
         {filteredLinks

@@ -5,4 +5,5 @@ export default interface UrlProps {
   tags: string[];
   favicon: string;
   description: string;
+  collection: string;
 }

@@ -1,4 +1,4 @@
-import { Button, Chip, Link, Card } from "bookmarker-ui";
+import { Button, Chip, Link, Board } from "bookmarker-ui";
 import { useState } from "react";
 import styled from "styled-components";
 import CardProps from "./CardProps";
@@ -6,7 +6,7 @@ import Chips from "./Chips";
 import Icon from "./Icon";
 import Top from "./Top";
 
-const ExtCard = styled(Card)`
+const ExtCard = styled(Board)`
   margin-bottom: 0.6rem;
   padding: 0.4rem 0.6rem;
 `;

@@ -2,6 +2,7 @@ import UserProvider from "../context/userContext";
 import { createGlobalStyle } from "styled-components";
 import Head from "next/head";
 import { ThemeProvider } from "bookmarker-ui";
+import Script from "next/script";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -25,11 +26,11 @@ export default function App({
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <title>Bookmarker</title>
           <link rel="shortcut icon" href="favicon.ico" />
-          <script
+          <Script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8409252119990664"
             crossOrigin="anonymous"
-          ></script>
+          ></Script>
         </Head>
         <Component {...pageProps} />
       </ThemeProvider>

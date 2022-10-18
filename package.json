@@ -8,7 +8,7 @@
     "build:firebase": "next build && next export && firebase deploy"
   },
   "dependencies": {
-    "bookmarker-ui": "^0.7.0",
+    "bookmarker-ui": "^1.1.2",
     "firebase": "9.10.0",
     "firebase-admin": "11.0.1",
     "next": "latest",
