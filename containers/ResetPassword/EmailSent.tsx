@@ -1,5 +1,5 @@
 import { Container, Link } from "bookmarker-ui";
-import resetPassword from "../../services/resetPassword";
+import resetPassword from "services/resetPassword";
 
 export default function EmailSent({ email }: { email: string }) {
   const handleReset = () => {

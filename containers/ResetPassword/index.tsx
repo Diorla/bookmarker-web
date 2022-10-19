@@ -1,11 +1,11 @@
 import { Loader } from "bookmarker-ui";
 import React from "react";
 import { useState } from "react";
-import { useUser } from "../../context/userContext";
+import { useUser } from "context/userContext";
 
 const EmailSent = React.lazy(() => import("./EmailSent"));
 const ResetEmail = React.lazy(() => import("./ResetEmail"));
-const ErrorDiv = React.lazy(() => import("../../components/ErrorDiv"));
+const ErrorDiv = React.lazy(() => import("components/ErrorDiv"));
 
 export default function ResetPassword() {
   const [confirmed, setConfirmed] = useState(false);

@@ -1,6 +1,6 @@
 import { Button, Container, Input } from "bookmarker-ui";
 import { useState } from "react";
-import resetPassword from "../../services/resetPassword";
+import resetPassword from "services/resetPassword";
 
 export default function ResetEmail({
   confirmEmail,

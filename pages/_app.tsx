@@ -1,4 +1,4 @@
-import UserProvider from "../context/userContext";
+import UserProvider from "context/userContext";
 import { createGlobalStyle } from "styled-components";
 import Head from "next/head";
 import { ThemeProvider } from "bookmarker-ui";

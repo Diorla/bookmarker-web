@@ -1,10 +1,10 @@
 import { SetStateAction, useEffect, useState } from "react";
-import { useUser } from "../../context/userContext";
-import fetchUrls from "../../services/fetchUrls";
+import { useUser } from "context/userContext";
+import fetchUrls from "services/fetchUrls";
 import { useWindowSize } from "react-use";
-import deleteUrl from "../../services/deleteUrl";
-import signOut from "../../services/signOut";
-import LinkCard from "../../components/link-card";
+import deleteUrl from "services/deleteUrl";
+import signOut from "services/signOut";
+import LinkCard from "components/link-card";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
@@ -15,9 +15,9 @@ import {
   Input,
   Loader,
   MenuItem,
-  Select,
   SelectItem,
 } from "bookmarker-ui";
+import StyledSelect from "./StyledSelect";
 
 export default function Home() {
   const { user } = useUser();
@@ -88,7 +88,7 @@ export default function Home() {
       <Info>
         <div>Welcome, {user.displayName}</div>
         <div>{getNumOfLinks(filteredLinks.length)}</div>
-        <Select title={currentCollection || "All"}>
+        <StyledSelect title={currentCollection || "All"}>
           {collections
             .sort((a, b) => (a > b ? 1 : -1))
             .map((item) => (
@@ -105,7 +105,7 @@ export default function Home() {
           <SelectItem onClick={() => setCurrentCollection("")}>
             Clear ❌
           </SelectItem>
-        </Select>
+        </StyledSelect>
       </Info>
       <Main>
         {filteredLinks

@@ -8,11 +8,11 @@ import {
 } from "bookmarker-ui";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useUser } from "../../context/userContext";
-import deleteAccount from "../../services/deleteAccount";
-import signOut from "../../services/signOut";
-import updateDisplayName from "../../services/updateDisplayName";
-import updatePassword from "../../services/updatePassword";
+import { useUser } from "context/userContext";
+import deleteAccount from "services/deleteAccount";
+import signOut from "services/signOut";
+import updateDisplayName from "services/updateDisplayName";
+import updatePassword from "services/updatePassword";
 import Main from "./Main";
 
 export default function Profile() {

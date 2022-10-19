@@ -1,6 +1,6 @@
 import { Link, Input, Button } from "bookmarker-ui";
 import { useState } from "react";
-import verifyPassword from "../../services/verifyPassword";
+import verifyPassword from "services/verifyPassword";
 
 export default function ResetPassword({ actionCode }: { actionCode: string }) {
   const [isReset, setIsReset] = useState(false);

@@ -1,6 +1,6 @@
 import { Input, Link, Button } from "bookmarker-ui";
 import { useState } from "react";
-import signUpWithEmail from "../../services/signUpWithEmail";
+import signUpWithEmail from "services/signUpWithEmail";
 
 export default function SignUp({ toggleForm }: { toggleForm: () => void }) {
   const initial = {

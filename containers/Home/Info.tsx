@@ -5,4 +5,5 @@ export default styled.div`
   justify-content: space-between;
   width: clamp(120px, 90%, 960px);
   margin-bottom: 8px;
+  align-items: center;
 `;
