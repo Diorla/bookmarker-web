@@ -5,9 +5,11 @@ import signOut from "services/signOut";
 export default function Layout({
   children,
   activePath,
+  search,
 }: {
   children: any;
   activePath: "home" | "profile";
+  search?: any;
 }) {
   return (
     <Container alignCenter>
@@ -20,7 +22,7 @@ export default function Layout({
             />
           </MenuItem>
         </Link>
-
+        {search}
         <div style={{ display: "flex", flexDirection: "row" }}>
           <Link href="/profile">
             <MenuItem active={activePath === "profile"}>Profile</MenuItem>

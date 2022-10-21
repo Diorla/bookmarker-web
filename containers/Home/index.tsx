@@ -17,6 +17,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [links, setLinks] = useState<UrlProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [ungrouped, _setUngrouped] = useState(String(Math.random()));
   const { width } = useWindowSize();
   const widthLimit = 600;
   const [currentCollection, setCurrentCollection] = useState("");
@@ -37,13 +38,30 @@ export default function Home() {
       return searchField.includes(search.toLowerCase());
     })
     .filter(({ collection = "" }) => {
+      if (currentCollection === ungrouped) return collection === "";
       return currentCollection ? collection === currentCollection : true;
     });
 
+  let selectTitle = currentCollection;
+  if (selectTitle === ungrouped) selectTitle = "Ungrouped";
   if (loading) return <Loader fullHeight />;
 
   return (
-    <Layout activePath="home">
+    <Layout
+      activePath="home"
+      search={
+        width > widthLimit && (
+          <Input
+            type="search"
+            placeholder="filter"
+            value={search}
+            onChange={(e: { target: { value: SetStateAction<string> } }) =>
+              setSearch(e.target.value)
+            }
+          />
+        )
+      }
+    >
       <div style={{ margin: 8 }}>
         {width <= widthLimit && (
           <Input
@@ -59,7 +77,7 @@ export default function Home() {
       <Info>
         <div>Welcome, {user.displayName}</div>
         <div>{getNumOfLinks(filteredLinks.length)}</div>
-        <StyledSelect title={currentCollection || "All"}>
+        <StyledSelect title={selectTitle || "All"}>
           {collections
             .sort((a, b) => (a > b ? 1 : -1))
             .map((item) => (
@@ -73,6 +91,10 @@ export default function Home() {
                 {item}
               </SelectItem>
             ))}
+          <hr />
+          <SelectItem onClick={() => setCurrentCollection(ungrouped)}>
+            Ungrouped
+          </SelectItem>
           <SelectItem onClick={() => setCurrentCollection("")}>
             Clear ❌
           </SelectItem>
