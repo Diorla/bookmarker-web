@@ -3,21 +3,14 @@ import { useUser } from "context/userContext";
 import fetchUrls from "services/fetchUrls";
 import { useWindowSize } from "react-use";
 import deleteUrl from "services/deleteUrl";
-import signOut from "services/signOut";
 import LinkCard from "components/link-card";
 import Main from "./Main";
 import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
 import Info from "./Info";
-import {
-  Container,
-  Header,
-  Input,
-  Loader,
-  MenuItem,
-  SelectItem,
-} from "bookmarker-ui";
+import { Input, Loader, SelectItem } from "bookmarker-ui";
 import StyledSelect from "./StyledSelect";
+import Layout from "containers/Layout";
 
 export default function Home() {
   const { user } = useUser();
@@ -50,29 +43,7 @@ export default function Home() {
   if (loading) return <Loader fullHeight />;
 
   return (
-    <Container alignCenter>
-      <Header style={{ justifyContent: "space-between" }}>
-        <MenuItem active href="/">
-          <img
-            src="https://bookmarker-one.vercel.app/favicon.ico"
-            style={{ height: 24, width: 24 }}
-          />
-        </MenuItem>
-        {width > widthLimit && (
-          <Input
-            type="search"
-            placeholder="filter"
-            value={search}
-            onChange={(e: { target: { value: SetStateAction<string> } }) =>
-              setSearch(e.target.value)
-            }
-          />
-        )}
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <MenuItem href="/profile">Profile</MenuItem>
-          <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
-        </div>
-      </Header>
+    <Layout activePath="home">
       <div style={{ margin: 8 }}>
         {width <= widthLimit && (
           <Input
@@ -129,6 +100,6 @@ export default function Home() {
             );
           })}
       </Main>
-    </Container>
+    </Layout>
   );
 }

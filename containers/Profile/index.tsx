@@ -1,19 +1,12 @@
-import {
-  Button,
-  Container,
-  Header,
-  Input,
-  Loader,
-  MenuItem,
-} from "bookmarker-ui";
+import { Button, Input, Loader } from "bookmarker-ui";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useUser } from "context/userContext";
 import deleteAccount from "services/deleteAccount";
-import signOut from "services/signOut";
 import updateDisplayName from "services/updateDisplayName";
 import updatePassword from "services/updatePassword";
 import Main from "./Main";
+import Layout from "containers/Layout";
 
 export default function Profile() {
   const { user, loadingUser } = useUser();
@@ -74,22 +67,7 @@ export default function Profile() {
   if (loadingUser) return <Loader fullHeight />;
 
   return (
-    <Container alignCenter>
-      <Header style={{ justifyContent: "space-between" }}>
-        <MenuItem href="/">
-          <img
-            src="https://bookmarker-one.vercel.app/favicon.ico"
-            style={{ height: 24, width: 24 }}
-          />
-        </MenuItem>
-
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <MenuItem href="/profile" active>
-            Profile
-          </MenuItem>
-          <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
-        </div>
-      </Header>
+    <Layout activePath="profile">
       <Main style={{ marginTop: 4 }}>
         <Input value={String(email)} label="Email" disabled />
         <Input
@@ -175,6 +153,6 @@ export default function Profile() {
           Delete Account
         </Button>
       </Main>
-    </Container>
+    </Layout>
   );
 }
