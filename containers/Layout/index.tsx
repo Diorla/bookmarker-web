@@ -1,18 +1,16 @@
 import { Container, Header, MenuItem } from "bookmarker-ui";
 import Link from "next/link";
 import signOut from "services/signOut";
+import LayoutProps from "./LayoutProps";
 
 export default function Layout({
   children,
   activePath,
   search,
-}: {
-  children: any;
-  activePath: "home" | "profile";
-  search?: any;
-}) {
+  alignCenter = true,
+}: LayoutProps) {
   return (
-    <Container alignCenter>
+    <Container alignCenter={alignCenter}>
       <Header style={{ justifyContent: "space-between" }}>
         <Link href="/">
           <MenuItem active={activePath === "home"}>
