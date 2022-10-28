@@ -16,7 +16,11 @@ export default function Layout({
   } = useUser();
   if (emailVerified)
     return (
-      <Container alignCenter={alignCenter}>
+      <Container
+        alignCenter={alignCenter}
+        fullHeight
+        style={{ paddingBottom: 100 }}
+      >
         <Header style={{ justifyContent: "space-between" }}>
           <Link href="/">
             <MenuItem active={activePath === "home"}>

@@ -11,6 +11,7 @@ import Info from "./Info";
 import { Input, Loader, SelectItem } from "bookmarker-ui";
 import StyledSelect from "./StyledSelect";
 import Layout from "containers/Layout";
+import Footer from "../Footer";
 
 export default function Home() {
   const { user } = useUser();
@@ -122,6 +123,7 @@ export default function Home() {
             );
           })}
       </Main>
+      <Footer />
     </Layout>
   );
 }

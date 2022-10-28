@@ -16,6 +16,7 @@ import Main from "./Main";
 import Layout from "containers/Layout";
 import removeCollection from "services/removeCollection";
 import ChipWrapper from "./ChipWrapper";
+import Footer from "containers/Footer";
 
 export default function Profile() {
   const { user, loadingUser } = useUser();
@@ -190,6 +191,7 @@ export default function Profile() {
           </Button>
         </Container>
       </Main>
+      <Footer />
     </Layout>
   );
 }

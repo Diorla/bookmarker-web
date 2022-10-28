@@ -5,6 +5,9 @@ import { ThemeProvider } from "bookmarker-ui";
 import Script from "next/script";
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    scroll-behavior: smooth;
+  }
   body {
     padding: 0;
     margin: 0;

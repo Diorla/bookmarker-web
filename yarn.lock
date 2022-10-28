@@ -994,10 +994,10 @@ bignumber.js@^9.0.0:
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.0.tgz#8d340146107fe3a6cb8d40699643c302e8773b62"
   integrity sha512-4LwHK4nfDOraBCtst+wOWIHbu1vhvAPJK8g8nROd4iuc3PSEjWif/qwbkh8jwCJz6yDBvtU4KPynETgrfh7y3A==
 
-bookmarker-ui@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/bookmarker-ui/-/bookmarker-ui-1.1.2.tgz#cef47da1e8476407a5aa9c149ab9319697a68a44"
-  integrity sha512-LprY79ePCgdFh0Y7mb5il2zLRezJw3QzQpQzaGGUPTqI/C+g57C6gdP3onHkJPtZQOkSOm6ztQdSbIYJQe8Jkg==
+bookmarker-ui@@alpha:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/bookmarker-ui/-/bookmarker-ui-1.2.0.tgz#00df16219ad6131a6ec9eb3f8f53dc37e41bbe0a"
+  integrity sha512-jNK28eTWJhiGmPfqXWvCh0tQa+p4EV2bK2ULTNjq/btZ9fiilMZfkZGnXGk8jRGrOdrddbT87uPL8+jz+0a+KQ==
   dependencies:
     color "^4.2.3"
     styled-components "^5.3.6"
