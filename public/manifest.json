@@ -1,6 +1,15 @@
 {
   "name": "Bookmarker",
-  "short_name": "BKR",
+  "short_name": "Bookmarker",
+  "share_target": {
+    "action": "/share-target/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "favicon": "favicon",
+      "url": "url"
+    }
+  },
   "icons": [
     {
       "src": "/icons/android-48.png",

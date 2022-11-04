@@ -5,25 +5,35 @@ import {
   Typography,
 } from "bookmarker-ui";
 import Link from "next/link";
+import styled from "styled-components";
 
 import ArrowUp from "./ArrowUp";
 
+const Segment = styled(FooterSegment)`
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  color: red;
+  align-items: center;
+  text-align: center;
+`;
+
 export default function Footer() {
   return (
-    <BuiFooter style={{ flex: 0, position: "fixed" }}>
-      <FooterSegment>
+    <BuiFooter style={{ flex: 0, position: "fixed", flexWrap: "wrap" }}>
+      <Segment>
         <Link href="/privacy-policy">
           <BuiLink>Privacy and Policy</BuiLink>
         </Link>
         <Link href="/feedback">
           <BuiLink>Feedback</BuiLink>
         </Link>
-      </FooterSegment>
-      <FooterSegment>
+      </Segment>
+      <Segment>
         <Typography type="h4" style={{ margin: 0, color: "white" }}>
           Download
         </Typography>
-        <FooterSegment>
+        <Segment>
           <BuiLink
             href="https://chrome.google.com/webstore/detail/bookmarker/akbpnbpmfmelpdpiepfmjdemfkeamhcf"
             target="_blank"
@@ -45,9 +55,9 @@ export default function Footer() {
           >
             Safari
           </BuiLink>
-        </FooterSegment>
-      </FooterSegment>
-      <FooterSegment>
+        </Segment>
+      </Segment>
+      <Segment>
         <BuiLink href="https://adeolaade.com" target="_blank" rel="noreferrer">
           &copy; Ade Adeola
         </BuiLink>
@@ -55,7 +65,7 @@ export default function Footer() {
           Top
           <ArrowUp />
         </BuiLink>
-      </FooterSegment>
+      </Segment>
     </BuiFooter>
   );
 }

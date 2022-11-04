@@ -1,37 +1,27 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useUser } from "context/userContext";
-import fetchUrls from "services/fetchUrls";
 import { useWindowSize } from "react-use";
 import deleteUrl from "services/deleteUrl";
 import LinkCard from "components/link-card";
 import Main from "./Main";
-import UrlProps from "./UrlProps";
 import getNumOfLinks from "./getNumOfLinks";
 import Info from "./Info";
 import { Input, Loader, SelectItem } from "bookmarker-ui";
 import StyledSelect from "./StyledSelect";
 import Layout from "containers/Layout";
 import Footer from "../Footer";
+import UrlProps from "types/UrlProps";
 
-export default function Home() {
+export default function Home({ links }: { links: UrlProps[] }) {
   const { user } = useUser();
   const [search, setSearch] = useState("");
-  const [links, setLinks] = useState<UrlProps[]>([]);
-  const [loading, setLoading] = useState(true);
+
   const [ungrouped, _setUngrouped] = useState(String(Math.random()));
   const { width } = useWindowSize();
   const widthLimit = 600;
   const [currentCollection, setCurrentCollection] = useState("");
 
   const { collections = [] } = user;
-  useEffect(() => {
-    const unsubscribe = fetchUrls(user.uid, (links) => {
-      setLinks(links);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   const filteredLinks = links
     .filter(({ title, url, tags = [] }) => {
@@ -45,7 +35,6 @@ export default function Home() {
 
   let selectTitle = currentCollection;
   if (selectTitle === ungrouped) selectTitle = "Ungrouped";
-  if (loading) return <Loader fullHeight />;
 
   return (
     <Layout

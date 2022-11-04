@@ -1,5 +1,5 @@
-import UrlProps from "./../containers/Home/UrlProps";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
+import UrlProps from "types/UrlProps";
 
 export default function fetchUrls(
   userId: string,

@@ -6,4 +6,5 @@ export default interface UrlProps {
   favicon: string;
   description: string;
   collection: string;
+  pinned?: boolean;
 }
