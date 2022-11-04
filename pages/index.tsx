@@ -37,22 +37,25 @@ export default function Index() {
     return () => unsubscribe();
   }, []);
 
-  if (sharedURL.url)
-    return (
-      <NewLink
-        links={links}
-        {...sharedURL}
-        onClear={() =>
-          setSharedURL({
-            title: "",
-            favicon: "",
-            url: "",
-          })
-        }
-      />
-    );
   if (loadingUser) return <Loader fullHeight />;
   if (error) <ErrorDiv error={error} />;
-  if (user.uid) return <Home links={links} />;
+
+  if (user.uid) {
+    if (sharedURL.url)
+      return (
+        <NewLink
+          links={links}
+          {...sharedURL}
+          onClear={() =>
+            setSharedURL({
+              title: "",
+              favicon: "",
+              url: "",
+            })
+          }
+        />
+      );
+    return <Home links={links} />;
+  }
   return <Form />;
 }

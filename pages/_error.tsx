@@ -1,10 +1,12 @@
+import { Container } from "bookmarker-ui";
+
 export default function Error({ statusCode }: { statusCode: any }) {
   return (
-    <p>
+    <Container alignCenter justifyCenter fullHeight>
       {statusCode
         ? `An error ${statusCode} occurred on server`
         : "An error occurred on client"}
-    </p>
+    </Container>
   );
 }
 
