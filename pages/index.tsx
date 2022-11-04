@@ -1,12 +1,13 @@
 import { Loader } from "bookmarker-ui";
 import React, { useEffect, useState } from "react";
 import { useUser } from "context/userContext";
-import NewLink from "containers/NewLink";
 import UrlProps from "types/UrlProps";
 import fetchUrls from "services/fetchUrls";
+import { Unsubscribe } from "firebase/firestore";
 
 const Form = React.lazy(() => import("containers/Form"));
 const Home = React.lazy(() => import("containers/Home"));
+const NewLink = React.lazy(() => import("containers/NewLink"));
 const ErrorDiv = React.lazy(() => import("components/ErrorDiv"));
 
 export default function Index() {
@@ -20,10 +21,15 @@ export default function Index() {
 
   const { loadingUser, user, error } = useUser();
 
+  const [loadingLinks, setLoadingLinks] = useState(true);
   useEffect(() => {
-    const unsubscribe = fetchUrls(user.uid, (links) => {
-      setLinks(links);
-    });
+    let unsubscribe: Unsubscribe;
+    if (user.uid) {
+      unsubscribe = fetchUrls(user.uid, (links) => {
+        setLinks(links);
+        setLoadingLinks(false);
+      });
+    }
 
     window.addEventListener("DOMContentLoaded", () => {
       const parsedUrl = new URL(String(window.location));
@@ -34,13 +40,14 @@ export default function Index() {
       setSharedURL({ title, favicon, url });
     });
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe && unsubscribe();
+  }, [user.uid]);
 
   if (loadingUser) return <Loader fullHeight />;
   if (error) <ErrorDiv error={error} />;
 
   if (user.uid) {
+    if (loadingLinks) return <Loader fullHeight />;
     if (sharedURL.url)
       return (
         <NewLink
